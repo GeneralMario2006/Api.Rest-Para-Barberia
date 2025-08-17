@@ -5,6 +5,7 @@
 package com.citas.citas.Entidades;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+import org.hibernate.annotations.Fetch;
 
 /**
  *
@@ -24,15 +26,19 @@ public class Barbería {
     Long id;
     
     String nombre;
+    String rol;
+    String contraseña;
     
-    @OneToMany(mappedBy = "barbero")
+    @OneToMany(mappedBy = "barbero", fetch = FetchType.LAZY)
     private List<Cita> citas;
 
     public Barbería() {
     }
 
-    public Barbería(String nombre) {
+    public Barbería(String nombre, String contraseña, String rol) {
         this.nombre = nombre;
+        this.contraseña= contraseña;
+        this.rol= rol;
        
     }
 
@@ -50,6 +56,30 @@ public class Barbería {
 
     public void setCitas(List<Cita> citas) {
         this.citas = citas;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
     
     

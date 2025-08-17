@@ -4,6 +4,7 @@
  */
 package com.citas.citas.Service;
 
+import com.citas.citas.Clases.CreateClientDto;
 import com.citas.citas.Entidades.Cliente;
 import com.citas.citas.Repositorys.ClienteRepository;
 import com.citas.citas.Security.ServiceConfig;
@@ -24,12 +25,12 @@ public class ClienteService {
     @Autowired
     ServiceConfig SC;
     
-    public void CrearUsuario(Cliente cliente) {
+    public void CrearUsuario(CreateClientDto cliente) {
         Cliente crear= new Cliente();
         crear.setNombre(cliente.getNombre());
         crear.setCorreo(cliente.getCorreo());
         crear.setTelefono(cliente.getTelefono());
-        
+        crear.setRol("CLIENTE");
         crear.setContraseña(SC.encryptPassword(cliente.getContraseña()));
         
         clienteRepository.save(crear);

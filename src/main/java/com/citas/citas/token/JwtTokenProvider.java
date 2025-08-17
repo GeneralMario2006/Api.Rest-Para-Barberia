@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Component
 public class JwtTokenProvider {
@@ -22,9 +26,14 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String correo) {
+    public String generateToken(UserDetails user) {
+        List<String> roles= user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        
         return Jwts.builder()
-                .setSubject(correo)
+                .setSubject(user.getUsername())
+                .claim("rol", roles)
                 .setIssuedAt(new Date()) 
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256) 

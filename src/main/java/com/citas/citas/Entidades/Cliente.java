@@ -7,6 +7,7 @@ package com.citas.citas.Entidades;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,17 +35,20 @@ public class Cliente {
     String contraseña;
     
     @JsonIgnore
-    @OneToMany (mappedBy= "cliente")
+    @OneToMany (mappedBy= "cliente", fetch= FetchType.LAZY)
     List<Cita> cita;
+    
+    String rol;
 
     public Cliente() {
     }
 
-    public Cliente(String nombre, String correo, int telefono, String contraseña) {
+    public Cliente(String nombre, String correo, int telefono, String contraseña, String rol) {
         this.nombre = nombre;
         this.correo = correo;
         this.contraseña= contraseña;
         this.telefono= telefono;
+        this.rol= rol;
     }
 
     public String getContraseña() {
@@ -95,6 +99,15 @@ public class Cliente {
     public void setCita(List<Cita> cita) {
         this.cita = cita;
     }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
     
     
 }

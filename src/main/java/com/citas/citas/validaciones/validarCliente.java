@@ -4,6 +4,7 @@
  */
 package com.citas.citas.validaciones;
 
+import com.citas.citas.Clases.CreateClientDto;
 import com.citas.citas.Entidades.Cliente;
 import com.citas.citas.Repositorys.ClienteRepository;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class validarCliente {
     @Autowired
     ClienteRepository clienteRepository;
     
-    public void validar(Cliente cliente) {
+    public void validar(CreateClientDto cliente) {
         Optional<Cliente> correo= clienteRepository.findByCorreo(cliente.getCorreo());
         Optional<Cliente> telefono= clienteRepository.findByTelefono(cliente.getTelefono());
         

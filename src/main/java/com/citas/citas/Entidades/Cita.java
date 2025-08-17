@@ -4,12 +4,15 @@
  */
 package com.citas.citas.Entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -22,24 +25,25 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     
-    Date fecha;
+    LocalDateTime fecha;
     
     String servicio;
     
     String estado;
-    
-    @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "id_cliente", nullable=true)
     Cliente cliente;
     
-@ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_barbero", nullable= true)
     private Barbería barbero;
 
     public Cita() {
     }
 
-    public Cita(Date fecha, String servicio, String estado, Cliente cliente) {
+    public Cita(LocalDateTime fecha, String servicio, String estado, Cliente cliente) {
         this.fecha = fecha;
         this.servicio = servicio;
         this.estado = estado;
@@ -54,11 +58,11 @@ public class Cita {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

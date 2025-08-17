@@ -4,6 +4,7 @@
  */
 package com.citas.citas.Clases;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -14,12 +15,12 @@ import java.util.Date;
  */
 public class CitaDTO {
 
-    public Date fecha;
+    public LocalDateTime fecha;
     public String servicio;
     public String estado;
     public String correo;  // este campo viene del usuario
 
-    public CitaDTO(Date fecha, String servicio, String estado, String correo) {
+    public CitaDTO(LocalDateTime fecha, String servicio, String estado, String correo) {
         this.fecha = fecha;
         this.servicio = servicio;
         this.estado = estado;
@@ -29,11 +30,11 @@ public class CitaDTO {
     public CitaDTO() {
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
